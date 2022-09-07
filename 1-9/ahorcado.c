@@ -27,8 +27,17 @@ char *random_word(){
     "oro",
     "plata",
     "juego",
-    "ahorcado"
-  };
+    "ahorcado",
+    "opciones",
+    "hermanos",
+    "padres",
+    "vistas",
+    "motor",
+    "celular",
+    "agregar",
+    "piputto",
+    "equipo",
+    "carpeta"  };
   return word_list[rand()%7];
 }
 
@@ -104,6 +113,7 @@ int print_horca(int tries){
 void start(char *correct_word, int length){
   // while (1) {
     bool no_esta = false;
+    bool son_iguales = true;
     int tries = 0;
     char letra;
     char mistery[length];
@@ -114,11 +124,14 @@ void start(char *correct_word, int length){
 
     while(1){
 
+      son_iguales = true;
+
       for ( int i = 0; i < length; i++) {
         if (correct_word[i] == letra) {
           mistery[i]=letra;
           no_esta = false; }
       }
+
       if (no_esta) {
         tries ++;
       }
@@ -130,6 +143,14 @@ void start(char *correct_word, int length){
 
       for (int i = 0; i < length; i++) {
         printf("%c", mistery[i]);
+        if (mistery[i] != correct_word[i]) {
+          son_iguales = false;
+        }
+      }
+
+      if(son_iguales) {
+        printf("\nGANASTE\n");
+        exit(0);
       }
 
       printf("\n");
@@ -142,10 +163,7 @@ void start(char *correct_word, int length){
         printf("\nPERDISTE\n");
         exit(0);
       }
-      if(!strcmp(correct_word, mistery)) {
-        printf("\nGANASTE\n");
-        exit(0);
-      }
+
       system("clear");
     }
 }
